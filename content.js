@@ -40,20 +40,31 @@
   }
 
   /**
-   * Determine if target element accepts textual input
+   * Determine if target element is a multiline text editor where Enter typically inserts a newline
    */
-  function isInputOrEditor(el) {
+  function isMultilineEditor(el) {
     if (!el) return false;
     const tag = el.tagName.toLowerCase();
+    
+    // Standard multiline inputs
     if (tag === 'textarea') return true;
-    if (tag === 'input') {
-      const type = (el.type || '').toLowerCase();
-      return type === 'text' || type === 'search' || type === '';
-    }
+
+    // Contenteditable elements (rich text editors, chat boxes, AI inputs)
     if (el.isContentEditable || el.getAttribute('contenteditable') === 'true') {
       return true;
     }
-    return Boolean(el.closest('[contenteditable="true"], .monaco-editor, .cm-editor, .ProseMirror'));
+
+    // Common web editors (Monaco, CodeMirror, ProseMirror, Slate)
+    return Boolean(el.closest('[contenteditable="true"], .monaco-editor, .cm-editor, .ProseMirror, .slate-editor'));
+  }
+
+  /**
+   * Extract trimmed text content from the target element
+   */
+  function getElementText(el) {
+    if (!el) return '';
+    if (typeof el.value === 'string') return el.value.trim();
+    return (el.innerText || el.textContent || '').trim();
   }
 
   /**
@@ -167,7 +178,11 @@
     if (event.isComposing) return;
 
     const target = event.target;
-    if (!isInputOrEditor(target)) return;
+    if (!isMultilineEditor(target)) return;
+
+    // Guard: Do not trigger submission if editor is empty or only whitespace
+    const text = getElementText(target);
+    if (!text) return;
 
     // Prevent default newline insertion
     event.preventDefault();

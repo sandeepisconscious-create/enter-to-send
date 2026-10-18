@@ -1,6 +1,19 @@
-# Enter to Send
+<p align="center">
+  <img src="assets/logo.png" alt="Enter to Send Logo" width="160">
+</p>
 
-A lightweight, distraction-free Chrome extension that flips the script on web text inputs: press **Enter** to send your message or submit your prompt, and use **Shift + Enter** when you actually need a new line.
+<h1 align="center">Enter to Send</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Manifest-V3-black?style=flat-square" alt="Manifest V3">
+  <img src="https://img.shields.io/badge/Chrome-Extension-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome Extension">
+  <img src="https://img.shields.io/badge/License-MIT-111827?style=flat-square" alt="MIT License">
+  <img src="https://img.shields.io/badge/Zero-Dependencies-emerald?style=flat-square" alt="Zero Dependencies">
+</p>
+
+<p align="center">
+  A lightweight, distraction-free Chrome extension that flips the script on web text inputs: press <strong>Enter</strong> to send your message or submit your prompt, and use <strong>Shift + Enter</strong> when you actually need a new line.
+</p>
 
 ---
 
@@ -63,13 +76,16 @@ Many modern web apps, developer consoles, and AI workspaces (such as Google AI S
 ## Project Structure
 
 ```
+├── assets/
+│   └── logo.png          # High-resolution project logo
 ├── manifest.json         # Chrome Extension Manifest V3 configuration
 ├── content.js            # Capture-phase keyboard interceptor & submission engine
 ├── popup/
 │   ├── popup.html        # Clean, accessible popup interface
-│   ├── popup.css         # Minimalist, monochrome styling
+│   ├── popup.css         # Minimalist styling
 │   └── popup.js          # Domain-level and global state management
-├── icons/                # High-contrast monochrome extension icons (16, 48, 128px)
+├── icons/                # Extension icons (16, 48, 128px)
+├── LICENSE               # MIT License
 └── README.md             # Project documentation and usage guide
 ```
 
@@ -86,6 +102,8 @@ Many modern web apps, developer consoles, and AI workspaces (such as Google AI S
 
 ---
 
-## License
+## License & Author
 
-MIT License. Free to use and modify.
+Created by **Sandheep Rao**.
+
+Distributed under the [MIT License](LICENSE). Free to use, modify, and distribute.

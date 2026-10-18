@@ -31,11 +31,14 @@ body {
 .branding {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.logo-mark {
-  display: none; /* Removed neon badge icon for pure minimalism */
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
 }
 
 h1 {
