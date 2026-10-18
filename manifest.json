@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Enter to Send",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Send messages and submit prompts with Enter instead of Command or Control + Enter. Use Shift + Enter for new lines.",
   "permissions": [
     "storage",

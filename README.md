@@ -15,6 +15,12 @@
   A lightweight, distraction-free Chrome extension that flips the script on web text inputs: press <strong>Enter</strong> to send your message or submit your prompt, and use <strong>Shift + Enter</strong> when you actually need a new line.
 </p>
 
+<p align="center">
+  <a href="https://github.com/sandeepisconscious-create/enter-to-send/archive/refs/heads/main.zip">
+    <img src="https://img.shields.io/badge/⬇%20Download%20Extension%20(ZIP)-2563eb?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download Extension (ZIP)">
+  </a>
+</p>
+
 ---
 
 ## The Problem
@@ -117,8 +123,8 @@ Then load the cloned folder in `chrome://extensions/`.
 
 ---
 
-## License & Author
+## 📄 License & Credits
 
-Created by **Sandheep Rao**.
+Created with ❤️ by [Sandheep Rao](https://github.com/sandeepisconscious-create).
 
-Distributed under the [MIT License](LICENSE). Free to use, modify, and distribute.
+Licensed under the [MIT License](LICENSE).
