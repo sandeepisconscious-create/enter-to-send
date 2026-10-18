@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter to Send</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="branding">
+        <div>
+          <h1>Enter to Send</h1>
+          <p class="tagline">Smart message submission</p>
+        </div>
+      </div>
+      <label class="switch" title="Global toggle">
+        <input type="checkbox" id="globalToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <section class="site-status-card" id="siteStatusCard">
+      <div class="site-info">
+        <span class="current-site-label">Current website</span>
+        <span class="domain-name" id="currentDomain">Loading...</span>
+      </div>
+      <label class="switch mini-switch" title="Toggle for this website">
+        <input type="checkbox" id="siteToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </section>
+
+    <section class="shortcuts-guide">
+      <div class="guide-row">
+        <div class="key-combo"><kbd>Enter</kbd></div>
+        <div class="key-action">Send message</div>
+      </div>
+      <div class="guide-row">
+        <div class="key-combo"><kbd>Shift</kbd> + <kbd>Enter</kbd></div>
+        <div class="key-action">New line</div>
+      </div>
+      <div class="guide-row">
+        <div class="key-combo"><kbd id="modKey">Cmd</kbd> + <kbd>Enter</kbd></div>
+        <div class="key-action">Original shortcut</div>
+      </div>
+    </section>
+
+    <footer class="footer" id="footer">
+      <span class="status-dot"></span>
+      <span id="statusIndicator">Active</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
