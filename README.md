@@ -51,25 +51,37 @@ Many modern web apps, developer consoles, and AI workspaces (such as Google AI S
 
 ---
 
-## Installation
+## Quick Install
 
-### Load into Google Chrome
+<p align="left">
+  <a href="https://github.com/sandeepisconscious-create/enter-to-send/archive/refs/heads/main.zip">
+    <img src="https://img.shields.io/badge/⬇%20Download%20Extension-ZIP-2563eb?style=for-the-badge&logoColor=white" alt="Download ZIP">
+  </a>
+</p>
 
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/sandeepisconscious-create/enter-to-send.git
-   ```
-2. Open Google Chrome and navigate to:
+### 3-Step Setup
+
+1. **Download & Extract:**  
+   Click the **[Download Extension (ZIP)](https://github.com/sandeepisconscious-create/enter-to-send/archive/refs/heads/main.zip)** button above and unzip it to your computer.
+
+2. **Open Extensions in Chrome:**  
+   In your Chrome address bar, open:
    ```
    chrome://extensions/
    ```
-3. Enable **Developer mode** via the toggle switch in the upper-right corner.
-4. Click **Load unpacked** in the top-left corner.
-5. Select the project folder:
-   ```
-   Enter 2 send
-   ```
-6. *(Optional)* Pin the extension icon to your Chrome toolbar for quick access to site toggles.
+   and turn **ON** the **Developer mode** toggle in the top-right corner.
+
+3. **Load the Extension:**  
+   Click **Load unpacked** (top-left) and select the unzipped `enter-to-send-main` folder.
+
+---
+
+### Alternative: Clone via Git
+
+```bash
+git clone https://github.com/sandeepisconscious-create/enter-to-send.git
+```
+Then load the cloned folder in `chrome://extensions/`.
 
 ---
 
