@@ -1,48 +1,47 @@
+/**
+ * Enter to Send - Popup Script
+ * Manages UI interactions and syncs preferences with storage
+ */
+
 document.addEventListener('DOMContentLoaded', async () => {
-  const globalToggle = document.getElementById('globalToggle');
-  const siteToggle = document.getElementById('siteToggle');
+  'use strict';
+
+  const globalToggle = /** @type {HTMLInputElement|null} */ (document.getElementById('globalToggle'));
+  const siteToggle = /** @type {HTMLInputElement|null} */ (document.getElementById('siteToggle'));
   const currentDomainEl = document.getElementById('currentDomain');
   const statusIndicator = document.getElementById('statusIndicator');
   const footer = document.getElementById('footer');
   const modKey = document.getElementById('modKey');
 
-  // Detect OS modifier key label
-  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  // Display OS-specific shortcut key
+  const isMac = typeof navigator !== 'undefined' && navigator.platform.toUpperCase().includes('MAC');
   if (modKey) {
     modKey.textContent = isMac ? 'Cmd' : 'Ctrl';
   }
 
   let activeHostname = '';
 
-  // Get active tab domain
+  // Resolve current tab domain
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab && tab.url) {
+    if (tab?.url) {
       const url = new URL(tab.url);
       if (url.protocol.startsWith('http')) {
         activeHostname = url.hostname;
-        currentDomainEl.textContent = activeHostname;
+        if (currentDomainEl) currentDomainEl.textContent = activeHostname;
       } else {
-        currentDomainEl.textContent = 'System page';
-        siteToggle.disabled = true;
+        if (currentDomainEl) currentDomainEl.textContent = 'System page';
+        if (siteToggle) siteToggle.disabled = true;
       }
     }
   } catch (_) {
-    currentDomainEl.textContent = 'Active tab';
+    if (currentDomainEl) currentDomainEl.textContent = 'Active tab';
   }
 
-  // Load state from storage
-  chrome.storage.sync.get({ enabled: true, disabledDomains: [] }, (items) => {
-    const isGlobal = items.enabled;
-    const disabledList = items.disabledDomains || [];
-    const isSiteEnabled = activeHostname ? !disabledList.includes(activeHostname) : true;
+  // Update status footer styling & text
+  function updateStatusUI(isGlobal, isSiteEnabled) {
+    if (!statusIndicator || !footer) return;
 
-    globalToggle.checked = isGlobal;
-    siteToggle.checked = isSiteEnabled;
-    updateStatusFooter(isGlobal, isSiteEnabled);
-  });
-
-  function updateStatusFooter(isGlobal, isSiteEnabled) {
     if (!isGlobal) {
       statusIndicator.textContent = 'Disabled globally';
       footer.classList.add('disabled');
@@ -55,29 +54,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Handle global toggle
-  globalToggle.addEventListener('change', () => {
+  // Load and apply initial state
+  const settings = await getSettings();
+  const isSiteActive = activeHostname ? !settings.disabledDomains.includes(activeHostname) : true;
+
+  if (globalToggle) globalToggle.checked = settings.enabled;
+  if (siteToggle) siteToggle.checked = isSiteActive;
+  updateStatusUI(settings.enabled, isSiteActive);
+
+  // Global toggle handler
+  globalToggle?.addEventListener('change', async () => {
     const isEnabled = globalToggle.checked;
-    chrome.storage.sync.set({ enabled: isEnabled });
-    updateStatusFooter(isEnabled, siteToggle.checked);
+    await setGlobalEnabled(isEnabled);
+    updateStatusUI(isEnabled, siteToggle?.checked ?? true);
   });
 
-  // Handle per-site toggle
-  siteToggle.addEventListener('change', () => {
+  // Per-site toggle handler
+  siteToggle?.addEventListener('change', async () => {
     if (!activeHostname) return;
     const isEnabled = siteToggle.checked;
-
-    chrome.storage.sync.get({ disabledDomains: [] }, (items) => {
-      let disabledList = items.disabledDomains || [];
-      if (!isEnabled) {
-        if (!disabledList.includes(activeHostname)) {
-          disabledList.push(activeHostname);
-        }
-      } else {
-        disabledList = disabledList.filter((d) => d !== activeHostname);
-      }
-      chrome.storage.sync.set({ disabledDomains: disabledList });
-      updateStatusFooter(globalToggle.checked, isEnabled);
-    });
+    await setDomainStatus(activeHostname, isEnabled);
+    updateStatusUI(globalToggle?.checked ?? true, isEnabled);
   });
 });

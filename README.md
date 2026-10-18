@@ -90,13 +90,16 @@ Then load the cloned folder in `chrome://extensions/`.
 ```
 ├── assets/
 │   └── logo.png          # High-resolution project logo
-├── manifest.json         # Chrome Extension Manifest V3 configuration
-├── content.js            # Capture-phase keyboard interceptor & submission engine
+├── src/
+│   ├── storage.js        # Shared storage synchronization service
+│   └── dom-utils.js      # Multiline editor detection & submit engine
 ├── popup/
 │   ├── popup.html        # Clean, accessible popup interface
 │   ├── popup.css         # Minimalist styling
 │   └── popup.js          # Domain-level and global state management
 ├── icons/                # Extension icons (16, 48, 128px)
+├── content.js            # Capture-phase keyboard interceptor
+├── manifest.json         # Chrome Extension Manifest V3 configuration
 ├── LICENSE               # MIT License
 └── README.md             # Project documentation and usage guide
 ```
